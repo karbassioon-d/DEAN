@@ -1,0 +1,45 @@
+volumes:
+  mongo-data:
+    external: true
+
+services:
+  mongo:
+    image: mongo:latest
+    volumes:
+      - ./setup/mongodb:/docker-entrypoint-initdb.d
+      - mongo-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: star
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - "27017:27017"
+
+  backend:
+    build:
+      context: api
+      dockerfile: Dockerfile.dev
+    ports:
+      - 8000:8000
+    volumes:
+      - ./api:/usr/src/app
+    environment:
+      DATABASE_URL: mongodb://squadcore:password@mongo
+      DATABASE_NAME: mongo-data
+      WAIT_HOSTS: mongo:27017
+      NODE_ENV: development
+
+  client:
+    image: node:lts-bullseye
+    build:
+      context: client
+      dockerfile: Dockerfile.dev
+    working_dir: /usr/src/app
+    volumes:
+      - ./client:/usr/src/app
+    ports:
+      - "4200:4200"
+    environment:
+      NODE_ENV: development
+    #   HOST_OS: ${OS}
+    #   HOST: "0.0.0.0"
+    #   PUBLIC_URL: ${PUBLIC_URL}
