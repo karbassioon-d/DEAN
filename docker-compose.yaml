@@ -9,8 +9,8 @@ services:
       - ./setup/mongodb:/docker-entrypoint-initdb.d
       - mongo-data:/data/db
     environment:
-      MONGO_INITDB_ROOT_USERNAME: star
-      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
     ports:
       - "27017:27017"
 
@@ -23,7 +23,7 @@ services:
     volumes:
       - ./api:/usr/src/app
     environment:
-      DATABASE_URL: mongodb://squadcore:password@mongo
+      DATABASE_URL: ${MONGO_URL}
       DATABASE_NAME: mongo-data
       WAIT_HOSTS: mongo:27017
       NODE_ENV: development
