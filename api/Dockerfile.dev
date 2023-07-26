@@ -9,6 +9,10 @@ COPY package-lock.json /usr/src/app
 
 RUN npm install
 
+RUN npm install -g nodemon ts-node
+
+RUN chmod +x /usr/local/lib/node_modules/ts-node/dist/bin.js
+
 COPY . /usr/src/app
 
 EXPOSE 8000
