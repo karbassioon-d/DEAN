@@ -5,9 +5,9 @@ import { getUserByEmail, createUser } from '../db/users';
 
 export const register = async (req: express.Request, res: express.Response) => {
     try {
-        const { email, username } = req.body;
+        const { email, username, password } = req.body;
 
-        if (!email || !username) {
+        if (!email || !username || !password) {
             return res.sendStatus(400);
         }
 
