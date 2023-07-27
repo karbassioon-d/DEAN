@@ -14,12 +14,19 @@ app.use(bodyParser.json());
 const port = process.env.PORT;
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Express + TypeScript Server 69420');
+  res.send('Express + TypeScript Server 67720');
 });
 
 mongoose.Promise = Promise;
-mongoose.connect(`${process.env.MONGO_URL}`);
-mongoose.connection.on("error", (error: Error) => console.log(error));
+const run = async () => {
+  try {
+    await mongoose.connect(`${process.env.MONGO_URL}`);
+    console.log("Connected to MongoDB successfully");
+  } catch (error) {
+    console.error("Error connecting to MongoDB", error);
+    process.exit(1);
+  }
+};
 
 app.use('/', router());
 
