@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { RouterModule } from '@angular/router'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SignInComponent } from './componnents/sign-in/sign-in.component';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
@@ -23,25 +22,19 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
+    RouterModule,
+    BrowserModule,
+    AppRoutingModule
   ],
   declarations: [
+    AppComponent,
     SignInComponent,
     SignUpComponent,
     ForgotPasswordComponent,
-    VerifyEmailComponent
-  ]
-})
-
-@NgModule({
-  declarations: [
-    AppComponent,
-    SignInComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
+    VerifyEmailComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
